@@ -1,0 +1,66 @@
+name: ClearSense CI
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+jobs:
+  verify:
+    name: RTL Verification and Analysis
+    runs-on: ubuntu-latest
+
+    env:
+      MPLBACKEND: Agg
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install RTL and synthesis tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y iverilog yosys make python3-pip
+
+      - name: Install Python dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install numpy matplotlib
+
+      - name: Show tool versions
+        run: |
+          echo "Icarus Verilog:"
+          iverilog -V | head -n 2
+
+          echo "Yosys:"
+          yosys -V
+
+          echo "Python:"
+          python3 --version
+
+      - name: Run ClearSense RTL regression
+        run: |
+          make test
+
+      - name: Run Yosys synthesis
+        run: |
+          make synth
+
+      - name: Run sensor-noise analysis
+        run: |
+          make analyze
+
+      - name: Upload ClearSense results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: clearsense-results
+          path: |
+            results/
+          if-no-files-found: warn
