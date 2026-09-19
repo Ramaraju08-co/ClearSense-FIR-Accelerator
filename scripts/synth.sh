@@ -10,7 +10,7 @@ mkdir -p results/synthesis
 
 echo ""
 echo "------------------------------------------"
-echo " Synthesizing Parallel FIR Architecture"
+echo " Parallel FIR Architecture"
 echo "------------------------------------------"
 
 yosys -p "
@@ -18,10 +18,8 @@ yosys -p "
     hierarchy -check -top clearsense_parallel;
     proc;
     opt;
-    techmap;
+    memory;
     opt;
-    abc;
-    clean;
     tee -o results/synthesis/parallel_stats.txt stat;
     tee -o results/synthesis/parallel_stats.json stat -json;
 "
@@ -31,7 +29,7 @@ echo "Parallel synthesis completed."
 
 echo ""
 echo "------------------------------------------"
-echo " Synthesizing Shared-Multiplier Architecture"
+echo " Shared-Multiplier FIR Architecture"
 echo "------------------------------------------"
 
 yosys -p "
@@ -39,10 +37,8 @@ yosys -p "
     hierarchy -check -top clearsense_shared;
     proc;
     opt;
-    techmap;
+    memory;
     opt;
-    abc;
-    clean;
     tee -o results/synthesis/shared_stats.txt stat;
     tee -o results/synthesis/shared_stats.json stat -json;
 "
@@ -52,12 +48,5 @@ echo "Shared synthesis completed."
 
 echo ""
 echo "=========================================="
-echo " ClearSense synthesis finished"
+echo " ClearSense synthesis completed"
 echo "=========================================="
-
-echo ""
-echo "Results saved in:"
-echo "results/synthesis/parallel_stats.txt"
-echo "results/synthesis/parallel_stats.json"
-echo "results/synthesis/shared_stats.txt"
-echo "results/synthesis/shared_stats.json"
