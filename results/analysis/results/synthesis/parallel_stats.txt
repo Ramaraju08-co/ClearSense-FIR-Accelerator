@@ -1,0 +1,27 @@
+ClearSense Yosys Synthesis Results
+===================================
+Architecture: Parallel MAC
+Top module: clearsense_parallel
+
+Synthesis Statistics
+--------------------
+Number of wires: 134
+Number of wire bits: 2417
+Number of public wires: 52
+Number of public wire bits: 929
+Number of memories: 0
+Number of memory bits: 0
+Number of processes: 0
+Number of cells: 117
+
+Arithmetic Resources
+--------------------
+Multipliers ($mul): 16
+Adders ($add): 17
+
+Architecture Objective
+----------------------
+The Parallel MAC architecture uses 16 multipliers to provide
+high computational parallelism for the 16-tap FIR filter.
+
+These statistics were generated using Yosys synthesis.
