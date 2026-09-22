@@ -1,0 +1,42 @@
+ClearSense Yosys Synthesis Results
+==================================
+
+Architecture: Shared Multiplier
+Top module: clearsense_shared
+
+Synthesis Statistics
+--------------------
+Number of cells: 131
+
+Arithmetic Resources
+--------------------
+Multipliers ($mul): 1
+Adders ($add): 4
+
+Architecture Objective
+----------------------
+The Shared-Multiplier architecture uses a single multiplier that is
+reused across FIR operations.
+
+This architecture reduces multiplier usage compared with the Parallel
+MAC implementation, at the cost of additional sequencing and control
+logic.
+
+Architecture Comparison
+-----------------------
+Parallel MAC:
+  Multipliers: 16
+  Adders: 17
+  Total cells: 117
+  Goal: High parallelism and throughput
+
+Shared Multiplier:
+  Multipliers: 1
+  Adders: 4
+  Total cells: 131
+  Goal: Reduced multiplier usage
+
+Note:
+These statistics are based on generic Yosys synthesis and represent
+logical-resource comparisons. They do not represent final ASIC area,
+power consumption, or maximum operating frequency.
